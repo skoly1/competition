@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "./components";
 import { getNewsData } from "./api";
-import { BrowserRouter } from "react-router-dom";
-
+import { RouterProvider } from "react-router-dom";
+import { router as indexRouter } from "./pages/index";
 import "./App.css";
-import Main from "./pages";
+// import Main from "./pages";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Main />
-      </BrowserRouter>
+      <RouterProvider router={indexRouter} />
     </>
   );
 }

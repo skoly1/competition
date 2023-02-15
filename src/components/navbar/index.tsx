@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import DiamondIcon from "@mui/icons-material/Diamond";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 const pages = [
   "Characters",
   "Comics",
@@ -52,7 +52,11 @@ function Navbar() {
       <AppBar position="sticky" sx={{ background: "#FF4949" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <DiamondIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Link to="/">
+              <DiamondIcon
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              />
+            </Link>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -84,9 +88,11 @@ function Navbar() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                  <Link to={page.toLowerCase()}>
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
             </Box>
