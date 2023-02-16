@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
+import Container from "../container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
@@ -50,7 +50,7 @@ function Navbar() {
   return (
     <>
       <AppBar position="sticky" sx={{ background: "#FF4949" }}>
-        <Container maxWidth="xl">
+        <Container sx={{ background: "#FF4949" }}>
           <Toolbar disableGutters>
             <Link to="/">
               <DiamondIcon

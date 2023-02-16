@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 
 export default function MediaCard(props: any) {
   const { title, imgurl, height, desc } = props;
-  console.log(title, imgurl);
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia sx={{ height: height }} image={imgurl} title="green iguana" />
