@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { Grid } from "@mui/material";
 const pages = [
   "Characters",
   "Comics",
@@ -50,7 +51,7 @@ function Navbar() {
   return (
     <>
       <AppBar position="sticky" sx={{ background: "#FF4949" }}>
-        <Container sx={{ background: "#FF4949" }}>
+        <Grid sx={{ background: "#FF4949", pl: 12, pr: 12 }}>
           <Toolbar disableGutters>
             <Link to="/">
               <DiamondIcon
@@ -88,8 +89,8 @@ function Navbar() {
                 }}
               >
                 {pages.map((page) => (
-                  <Link to={page.toLowerCase()}>
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Link to={page.toLowerCase()} key={page}>
+                    <MenuItem onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">{page}</Typography>
                     </MenuItem>
                   </Link>
@@ -158,7 +159,7 @@ function Navbar() {
               </Menu>
             </Box>
           </Toolbar>
-        </Container>
+        </Grid>
       </AppBar>
       <Outlet />
     </>
