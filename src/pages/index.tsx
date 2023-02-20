@@ -1,6 +1,6 @@
-import React from "react";
+import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import CharactersPage from "./characters";
+// import CharactersPage from "./characters";
 import { Layout, Navbar } from "../components";
 import ComicsPage from "./comics";
 import CreatorsPage from "./creators";
@@ -8,12 +8,13 @@ import EventsPage from "./events";
 import HomePage from "./home";
 import SeriesPage from "./series";
 import StoriesPage from "./stories";
-
-// const Main = () => {
+import ErrorPage from "./error";
+const CharactersPage = lazy(() => import("./characters"));
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Navbar />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

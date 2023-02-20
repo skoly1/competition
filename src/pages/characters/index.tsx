@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Skeleton } from "../../components";
 import { getNewsData } from "../../api";
 import * as CONSTANTS from "../../utility/constants";
-import { Box } from "@mui/system";
+
 import { CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
 const CharactersPage = () => {
   const [characters, setCharacters] = useState<any>();
-  const [charStatus, setChardacterStatus] = useState<string>("");
+  const [charStatus, setChardacterStatus] = useState<any>("");
 
   // init function for Characters
   const init = async () => {
-    const charData = await getNewsData(CONSTANTS.CHARACTERS, { limit: 18 });
-
+    const charData = await getNewsData(CONSTANTS.CHARACTERS, { limit: 100 });
+    console.log(charData);
     setCharacters(charData?.data);
     setChardacterStatus(charData?.text);
   };
@@ -67,12 +67,12 @@ const CharactersPage = () => {
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       onHoverStart={(e) => {
-                        console.log("hover", char?.id);
-                        hoverHandler(char?.id, true);
+                        // console.log("hover", char?.id);
+                        // hoverHandler(char?.id, true);
                       }}
                       onHoverEnd={() => {
-                        console.log("end", char?.id);
-                        hoverHandler(char?.id, false);
+                        // console.log("end", char?.id);
+                        // hoverHandler(char?.id, false);
                       }}
                     >
                       <Card

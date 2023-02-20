@@ -8,28 +8,34 @@ export async function getNewsData(
     id?: number;
     event?: string;
     limit?: number;
+    page?: number;
   }
 ) {
-  let key = `?ts=1&apikey=${process.env.REACT_APP_API_KEY}&hash=${process.env.REACT_APP_HASH_KEY}`;
-  let url = `${process.env.REACT_APP_MARVEL_API_URL}${type}`;
-  if (object?.id) {
-    url = `${url}/${object?.id}`;
+  try {
+    let key = `?ts=1&apikey=${process.env.REACT_APP_API_KEY}&hash=${process.env.REACT_APP_HASH_KEY}`;
+    let url = `${process.env.REACT_APP_MARVEL_API_URL}${type}`;
+    if (object?.id) {
+      url = `${url}/${object?.id}`;
+    }
+    if (object?.event) {
+      url = `${url}/${object?.event}`;
+    }
+
+    url = `${url}${key}`;
+
+    const response = await axios.get(url, {
+      params: {
+        limit: `${object?.limit}`,
+        offset: `${object?.page}`,
+      },
+    });
+
+    return {
+      status: response.status,
+      data: response.data.data.results,
+      text: response.statusText,
+    };
+  } catch (err) {
+    console.log(err);
   }
-  if (object?.event) {
-    url = `${url}/${object?.event}`;
-  }
-
-  url = `${url}${key}`;
-
-  const response = await axios.get(url, {
-    params: {
-      limit: `${object?.limit}`,
-    },
-  });
-
-  return {
-    status: response.status,
-    data: response.data.data.results,
-    text: response.statusText,
-  };
 }
