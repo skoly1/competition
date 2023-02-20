@@ -17,7 +17,6 @@ const ComicsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const init = async () => {
- 
       const comicData = await getNewsData(COMICS, {
         limit: 16,
         page: page,

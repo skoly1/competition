@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Skeleton } from "../../components";
+import { Card, Skeleton } from "../../components";
 import { getNewsData } from "../../api";
 import * as CONSTANTS from "../../utility/constants";
 
@@ -22,25 +22,13 @@ const CharactersPage = () => {
     init();
   }, []);
 
-  const hoverHandler = (id: number, hoverStatus: boolean) => {
-    const newCharData = characters?.map((char: any) => {
-      if (char.id === id) {
-        return { ...char, hoverStatus };
-      }
-      return char;
-    });
-
-    setCharacters(() => newCharData);
-  };
-
   return (
     <>
       <Grid
         sx={{
-          background: "#fff",
+          background: "#000",
           height: "100%",
           p: 4,
-
           mt: 4,
         }}
         justifyContent="center"
@@ -63,7 +51,12 @@ const CharactersPage = () => {
             <Grid container justifyContent="center" spacing={6}>
               {characters?.map((char: any) => {
                 return (
-                  <Grid key={char?.id} item justifyContent="start">
+                  <Grid
+                    key={char?.id}
+                    item
+                    justifyContent="start"
+                    sx={{ cursor: "pointer" }}
+                  >
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       onHoverStart={(e) => {
@@ -87,6 +80,7 @@ const CharactersPage = () => {
                           component="img"
                           // height={`${char?.hoverStatus ? "75%" : "100%"}`}
                           height="75%"
+                          loading="lazy"
                           image={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`}
                           alt={`${char?.name}`}
                           sx={{ objectFit: "fill" }}
@@ -105,9 +99,6 @@ const CharactersPage = () => {
                           >
                             {char?.name}
                           </Typography>
-                          {/* <Typography variant="body2" color="text.secondary">
-                            {char?.description}
-                          </Typography> */}
                         </CardContent>
                       </Card>
                     </motion.div>

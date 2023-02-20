@@ -6,59 +6,32 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "../container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import DiamondIcon from "@mui/icons-material/Diamond";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { Grid } from "@mui/material";
-const pages = [
-  "Characters",
-  "Comics",
-  "Creators",
-  "Events",
-  "Series",
-  "Stories",
-];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import logo from "../../media/spiderman.png";
+
+const pages = ["Characters", "Comics", "Events", "Series"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <>
-      <AppBar position="sticky" sx={{ background: "#FF4949" }}>
-        <Grid sx={{ background: "#FF4949", pl: 12, pr: 12 }}>
+      <AppBar position="sticky" sx={{ background: "rgb(18, 18, 18)" }}>
+        <Grid sx={{ pl: 12, pr: 12 }}>
           <Toolbar disableGutters>
-            <Link to="/">
-              <DiamondIcon
-                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-              />
-            </Link>
-
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -88,75 +61,48 @@ function Navbar() {
                   display: { xs: "block", md: "none" },
                 }}
               >
+                {/* mobile */}
                 {pages.map((page) => (
-                  <Link to={page.toLowerCase()} key={page}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-              </Menu>
-            </Box>
-
-            <DiamondIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              LOGO
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Link
-                  to={page.toLowerCase()}
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                >
-                  {page}
-                </Link>
-              ))}
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                  <MenuItem
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    to={`${page.toLowerCase()}`}
+                    key={page}
+                  >
+                    <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
+            </Box>
+
+            <Typography component={Link} to="/">
+              <img
+                src={logo}
+                alt="bug"
+                height={40}
+                style={{ filter: "invert(1)" }}
+              />
+            </Typography>
+            <Box
+              sx={{ ml: 2, flexGrow: 1, display: { xs: "none", md: "flex" } }}
+            >
+              {/* web */}
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontWeight: "bold",
+                  }}
+                  component={Link}
+                  to={page.toLowerCase()}
+                >
+                  {page}
+                </Button>
+              ))}
             </Box>
           </Toolbar>
         </Grid>

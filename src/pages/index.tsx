@@ -3,11 +3,9 @@ import { createBrowserRouter } from "react-router-dom";
 // import CharactersPage from "./characters";
 import { Layout, Navbar } from "../components";
 import ComicsPage from "./comics";
-import CreatorsPage from "./creators";
 import EventsPage from "./events";
 import HomePage from "./home";
 import SeriesPage from "./series";
-import StoriesPage from "./stories";
 import ErrorPage from "./error";
 const CharactersPage = lazy(() => import("./characters"));
 export const router = createBrowserRouter([
@@ -23,11 +21,8 @@ export const router = createBrowserRouter([
           { index: true, element: <HomePage /> },
           { path: "/characters", element: <CharactersPage /> },
           { path: "/comics", element: <ComicsPage /> },
-          { path: "/creators", element: <CreatorsPage /> },
           { path: "/events", element: <EventsPage /> },
           { path: "/series", element: <SeriesPage /> },
-          { path: "/stories", element: <StoriesPage /> },
-          { path: "/characters", element: <CharactersPage /> },
         ],
       },
     ],
