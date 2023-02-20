@@ -4,11 +4,12 @@ import { getNewsData } from "../../api";
 import * as CONSTANTS from "../../utility/constants";
 import { Box } from "@mui/system";
 import { CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CharactersPage = () => {
   const [characters, setCharacters] = useState<any>();
   const [charStatus, setChardacterStatus] = useState<string>("");
+  const [selectedId, setSelectedId] = useState(null);
 
   // init function for Characters
   const init = async () => {
@@ -37,10 +38,9 @@ const CharactersPage = () => {
     <>
       <Grid
         sx={{
-          background: "#fff",
+          background: "#000",
           height: "100%",
           p: 4,
-
           mt: 4,
         }}
         justifyContent="center"
@@ -63,7 +63,12 @@ const CharactersPage = () => {
             <Grid container justifyContent="center" spacing={6}>
               {characters?.map((char: any) => {
                 return (
-                  <Grid key={char?.id} item justifyContent="start">
+                  <Grid
+                    key={char?.id}
+                    item
+                    justifyContent="start"
+                    sx={{ cursor: "pointer" }}
+                  >
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       onHoverStart={(e) => {
@@ -87,6 +92,7 @@ const CharactersPage = () => {
                           component="img"
                           // height={`${char?.hoverStatus ? "75%" : "100%"}`}
                           height="75%"
+                          loading="lazy"
                           image={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`}
                           alt={`${char?.name}`}
                           sx={{ objectFit: "fill" }}
