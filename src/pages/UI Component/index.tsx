@@ -1,7 +1,6 @@
 import { Card, Container, Skeleton, Grid } from "../../components";
 import { CardContent, CardMedia, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const CardComponent = (props: any) => {
   const { text, characters } = props;
@@ -55,19 +54,15 @@ const CardComponent = (props: any) => {
                         sx={{ objectFit: "fill" }}
                       /> */}
 
-                      {/* <CardMedia
+                      <CardMedia
                         component="img"
                         // height={`${char?.hoverStatus ? "75%" : "100%"}`}
                         height="75%"
                         image={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`}
                         alt={`${char?.name}`}
                         sx={{ objectFit: "fill" }}
-                      /> */}
-                      <LazyLoadImage
-                        src={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`}
-                        height={"75%"}
-                        effect="blur"
                       />
+
                       <CardContent>
                         <Typography
                           gutterBottom
