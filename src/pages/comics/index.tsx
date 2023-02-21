@@ -1,47 +1,66 @@
-import React, { lazy, useEffect, Suspense, useState } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
+import React, { Suspense, useEffect, useState } from "react";
 import { getNewsData } from "../../api";
+import * as CONSTANTS from "../../utility/constants";
 
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector, useDispatch } from "react-redux";
 
-import { COMICS } from "../../utility/constants";
 import { comicActions } from "../../store/comic-slice";
-const CardComponent = lazy(() => import("../UI Component"));
+import InfiniteScroll from "react-infinite-scroll-component";
+import CardComponent from "../UI Component";
+
 const ComicsPage = () => {
-  const comicObject = useSelector((state: any) => state.comic);
-  const [scrolled, setscrolled] = useState(true);
-  const comicItems = comicObject.data;
-  const text = comicObject.text;
-  const [page, setPage] = useState(0);
+  const comicReduxData = useSelector((state: any) => {
+    return state?.comics;
+  });
+  const scroll = useSelector((state: any) => state.comics.scrollPosition);
   const dispatch = useDispatch();
+  const getCharData = async () => {
+    const comicData = await getNewsData(CONSTANTS.COMICS, {
+      limit: 20,
+      offset: comicReduxData?.offsetPage,
+    });
+    dispatch(
+      comicActions.ComicReducer({
+        comicData,
+        offsetPage: comicReduxData?.offsetPage + 20,
+        scrollPosition: window.pageYOffset,
+      })
+    );
+  };
+
+  // init function for Characters
+  const init = async () => {
+    if (comicReduxData?.data?.length > 0) {
+    } else {
+      getCharData();
+    }
+  };
+
   useEffect(() => {
-    const init = async () => {
-      const comicData = await getNewsData(COMICS, {
-        limit: 16,
-      });
-      dispatch(comicActions.Replace(comicData));
-    };
+    window.scrollTo(0, scroll);
+
     init();
-    setPage((prev) => prev + 2);
-  }, [scrolled]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchMore = () => {
-    setscrolled(!scrolled);
-    console.log(comicItems);
+    getCharData();
   };
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
         <InfiniteScroll
-          dataLength={comicItems.length}
+          dataLength={comicReduxData?.data?.length || 0}
           next={fetchMore}
-          hasMore={comicItems.length < 100}
-          loader={<div>Infinite Scrolling</div>}
+          hasMore={(comicReduxData?.data?.length || 0) < comicReduxData?.total}
+          loader={<div style={{ color: "white" }}>Infinite Scrolling</div>}
           endMessage={<div>You reached End page</div>}
         >
-          <CardComponent text={text} characters={comicItems} />;
+          <CardComponent
+            text={comicReduxData?.text}
+            characters={comicReduxData?.data}
+          />
         </InfiniteScroll>
       </Suspense>
     </>

@@ -1,13 +1,13 @@
 import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-// import CharactersPage from "./characters";
+import CharactersPage from "./characters";
 import { Layout, Navbar } from "../components";
 import ComicsPage from "./comics";
 import EventsPage from "./events";
 import HomePage from "./home";
 import SeriesPage from "./series";
 import ErrorPage from "./error";
-const CharactersPage = lazy(() => import("./characters"));
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +19,10 @@ export const router = createBrowserRouter([
         element: <Layout />,
         children: [
           { index: true, element: <HomePage /> },
-          { path: "/characters", element: <CharactersPage /> },
+          {
+            path: "/characters",
+            element: <CharactersPage />,
+          },
           { path: "/comics", element: <ComicsPage /> },
           { path: "/events", element: <EventsPage /> },
           { path: "/series", element: <SeriesPage /> },

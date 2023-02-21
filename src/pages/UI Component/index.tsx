@@ -1,7 +1,7 @@
 import { Card, Skeleton, Grid } from "../../components";
 import { CardContent, CardMedia, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-
+import errorImage from "../../media/img.png";
 const CardComponent = (props: any) => {
   const { text, characters } = props;
   return (
@@ -20,7 +20,6 @@ const CardComponent = (props: any) => {
         // justifyContent="center"
         justifyContent="flex-start"
         spacing={2}
-        xs={12}
         sx={{
           pt: 0,
           p: 4,
@@ -63,12 +62,17 @@ const CardComponent = (props: any) => {
                         alt={`${char?.name}`}
                         sx={{ objectFit: "fill" }}
                       /> */}
-
+                      {/* not_available */}
+                      {/* {`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`} */}
                       <CardMedia
                         component="img"
                         // height={`${char?.hoverStatus ? "75%" : "100%"}`}
                         height="75%"
-                        image={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`}
+                        image={
+                          `${char?.thumbnail?.path}`.includes("not_available")
+                            ? errorImage
+                            : `${char?.thumbnail?.path}.${char?.thumbnail?.extension}`
+                        }
                         alt={`${char?.name}`}
                         sx={{ objectFit: "fill" }}
                       />
@@ -85,7 +89,7 @@ const CardComponent = (props: any) => {
                             textAlign: "center",
                           }}
                         >
-                          {char?.name}
+                          {char.name || char.title}
                         </Typography>
                       </CardContent>
                     </Card>

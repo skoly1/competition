@@ -10,30 +10,30 @@ const initialState = {
   scrollPosition: 0,
 } as pagesInterface;
 
-export const comicSlice = createSlice({
-  name: "characters",
+export const eventSlice = createSlice({
+  name: "events",
   initialState,
   reducers: {
-    ComicReducer(state, action) {
+    EventReducer(state, action) {
       const existingId = state.data.map((ele: any) => ele.id);
-      const incomingData = action?.payload?.comicData?.data;
+      const incomingData = action?.payload?.eventData?.data;
       const filteredData = incomingData.filter((ele: any) => {
         if (!existingId.includes(ele.id)) {
           return ele;
         }
       });
-      const newComicData = [...state.data, ...filteredData];
+      const newEventData = [...state.data, ...filteredData];
 
       return {
         ...state,
-        text: action?.payload?.comicData?.text,
-        status: action?.payload?.comicData?.status,
-        data: newComicData,
-        total: action?.payload?.comicData?.total,
+        text: action?.payload?.eventData?.text,
+        status: action?.payload?.eventData?.status,
+        data: newEventData,
+        total: action?.payload?.eventData?.total,
         offsetPage: action?.payload?.offsetPage,
         scrollPosition: action?.payload?.scrollPosition,
       };
     },
   },
 });
-export const comicActions = comicSlice.actions;
+export const eventActions = eventSlice.actions;
