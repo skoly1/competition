@@ -1,4 +1,4 @@
-import { Card, Container, Skeleton, Grid } from "../../components";
+import { Card, Skeleton, Grid } from "../../components";
 import { CardContent, CardMedia, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
