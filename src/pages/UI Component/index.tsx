@@ -7,15 +7,25 @@ const CardComponent = (props: any) => {
   return (
     <Grid
       sx={{
-        background: "#fff",
+        background: "#000",
         height: "100%",
         p: 4,
-
         mt: 4,
+        width: "80%",
       }}
       justifyContent="center"
     >
-      <Grid container justifyContent="center" spacing={6}>
+      <Grid
+        container
+        // justifyContent="center"
+        justifyContent="flex-start"
+        spacing={2}
+        xs={12}
+        sx={{
+          pt: 0,
+          p: 4,
+        }}
+      >
         {text !== "OK" && (
           <>
             {Array.from(Array(18)).map((_, e) => {
@@ -75,7 +85,7 @@ const CardComponent = (props: any) => {
                             textAlign: "center",
                           }}
                         >
-                          {char?.title}
+                          {char?.name}
                         </Typography>
                       </CardContent>
                     </Card>

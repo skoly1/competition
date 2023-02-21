@@ -19,7 +19,6 @@ const ComicsPage = () => {
     const init = async () => {
       const comicData = await getNewsData(COMICS, {
         limit: 16,
-        page: page,
       });
       dispatch(comicActions.Replace(comicData));
     };

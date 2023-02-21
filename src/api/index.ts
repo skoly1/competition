@@ -8,7 +8,7 @@ export async function getNewsData(
     id?: number;
     event?: string;
     limit?: number;
-    page?: number;
+    offset?: number;
   }
 ) {
   try {
@@ -26,7 +26,7 @@ export async function getNewsData(
     const response = await axios.get(url, {
       params: {
         limit: `${object?.limit}`,
-        offset: `${object?.page}`,
+        offset: `${object?.offset}`,
       },
     });
 
@@ -34,6 +34,7 @@ export async function getNewsData(
       status: response.status,
       data: response.data.data.results,
       text: response.statusText,
+      total: response.data.data.total,
     };
   } catch (err) {
     console.log(err);
