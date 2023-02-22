@@ -1,32 +1,31 @@
-import React from "react";
+import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import CharactersPage from "./characters";
 import { Layout, Navbar } from "../components";
 import ComicsPage from "./comics";
-import CreatorsPage from "./creators";
 import EventsPage from "./events";
 import HomePage from "./home";
 import SeriesPage from "./series";
-import StoriesPage from "./stories";
+import ErrorPage from "./error";
 
-// const Main = () => {
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Navbar />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: <Layout />,
         children: [
           { index: true, element: <HomePage /> },
-          { path: "/characters", element: <CharactersPage /> },
+          {
+            path: "/characters",
+            element: <CharactersPage />,
+          },
           { path: "/comics", element: <ComicsPage /> },
-          { path: "/creators", element: <CreatorsPage /> },
           { path: "/events", element: <EventsPage /> },
           { path: "/series", element: <SeriesPage /> },
-          { path: "/stories", element: <StoriesPage /> },
-          { path: "/characters", element: <CharactersPage /> },
         ],
       },
     ],

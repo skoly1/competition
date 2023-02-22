@@ -1,7 +1,12 @@
 import React from "react";
+import Container from "@mui/material/Container";
 
-const Container = () => {
-  return <div>Container</div>;
+const ContainerComp = (props: any) => {
+  return (
+    <Container {...props} maxWidth="xl">
+      {props.children}
+    </Container>
+  );
 };
 
-export default Container;
+export default ContainerComp;
