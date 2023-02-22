@@ -1,9 +1,25 @@
 import { Card, Skeleton, Grid } from "../../components";
-import { CardContent, CardMedia, Typography } from "@mui/material";
+import { CardContent, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import errorImage from "../../media/img.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
+export const PlaceHolderImg = (props: any) => {
+  const { char } = props;
+  return (
+    <>
+      <img
+        alt="nothing"
+        src={`${char?.thumbnail?.path}/portrait_medium.${char?.thumbnail?.extension}`}
+        height="100%"
+      />
+    </>
+  );
+};
+
 const CardComponent = (props: any) => {
   const { text, characters } = props;
+
   return (
     <Grid
       sx={{
@@ -17,7 +33,6 @@ const CardComponent = (props: any) => {
     >
       <Grid
         container
-        // justifyContent="center"
         justifyContent="flex-start"
         spacing={2}
         sx={{
@@ -54,29 +69,16 @@ const CardComponent = (props: any) => {
                         background: "#141414",
                       }}
                     >
-                      {/* <CardMedia
-                        component="img"
-                        // height={`${char?.hoverStatus ? "75%" : "100%"}`}
-                        height="75%"
-                        image={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`}
-                        alt={`${char?.name}`}
-                        sx={{ objectFit: "fill" }}
-                      /> */}
-                      {/* not_available */}
-                      {/* {`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`} */}
-                      <CardMedia
-                        component="img"
-                        // height={`${char?.hoverStatus ? "75%" : "100%"}`}
-                        height="75%"
-                        image={
-                          `${char?.thumbnail?.path}`.includes("not_available")
-                            ? errorImage
-                            : `${char?.thumbnail?.path}.${char?.thumbnail?.extension}`
-                        }
-                        alt={`${char?.name}`}
-                        sx={{ objectFit: "fill" }}
-                      />
-
+                      <div style={{ height: "75%" }}>
+                        <LazyLoadImage
+                          placeholder={<PlaceHolderImg char={char} />}
+                          style={{ objectFit: "fill" }}
+                          height="100%"
+                          width="100%"
+                          effect="blur"
+                          src={`${char?.thumbnail?.path}.${char?.thumbnail?.extension}`} // use normal <img> attributes as props
+                        />
+                      </div>
                       <CardContent>
                         <Typography
                           gutterBottom
@@ -100,7 +102,6 @@ const CardComponent = (props: any) => {
           </>
         )}
       </Grid>
-      {/* </InfiniteScroll> */}
     </Grid>
   );
 };

@@ -4,7 +4,7 @@ import * as CONSTANTS from "../../utility/constants";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { seriesActions } from "../../store/series-slice";
+import { seriesActions } from "../../store/redux-slice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
 

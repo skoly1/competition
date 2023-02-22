@@ -1,10 +1,10 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 import { getNewsData } from "../../api";
 import * as CONSTANTS from "../../utility/constants";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { eventActions } from "../../store/event-slice";
+import { eventActions } from "../../store/redux-slice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
 

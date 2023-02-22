@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { pagesInterface } from "../utility/interfaces";
+import { pagesInterface } from "../../utility/interfaces";
 
 const initialState = {
   status: 0,
@@ -16,19 +16,17 @@ export const characterSlice = createSlice({
   reducers: {
     characterReducer(state, action) {
       const existingId = state.data.map((ele: any) => ele.id);
-      const incomingData = action?.payload?.charData?.data;
-      const filteredData = incomingData.filter((ele: any) => {
-        if (!existingId.includes(ele.id)) {
-          return ele;
-        }
+      const incomingData = action?.payload?.apiData?.data;
+      const filteredData = incomingData?.filter((ele: any) => {
+        return !existingId.includes(ele.id) && ele;
       });
-      const newCharData = [...state.data, ...filteredData];
+      const newapiData = [...state.data, ...filteredData];
       return {
         ...state,
-        text: action?.payload?.charData?.text,
-        status: action?.payload?.charData?.status,
-        data: newCharData,
-        total: action?.payload?.charData?.total,
+        text: action?.payload?.apiData?.text,
+        status: action?.payload?.apiData?.status,
+        data: newapiData,
+        total: action?.payload?.apiData?.total,
         offsetPage: action?.payload?.offsetPage,
         scrollPosition: action?.payload?.scrollPosition,
       };

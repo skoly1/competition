@@ -1,51 +1,18 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { getNewsData } from "../../api";
+import React, { Suspense } from "react";
+
 import * as CONSTANTS from "../../utility/constants";
 
-import { useSelector, useDispatch } from "react-redux";
-
-import { charactersActions } from "../../store/characters-slice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
+import { usePageInit, useGetPageData } from "../../hooks";
 
 const CharactersPage = () => {
-  const scroll = useSelector((state: any) => state.characters.scrollPosition);
+  const charReduxData = usePageInit(CONSTANTS.CHARACTERS);
 
-  const charReduxData = useSelector((state: any) => {
-    return state?.characters;
-  });
-
-  const dispatch = useDispatch();
-
-  const getCharData = async () => {
-    const charData = await getNewsData(CONSTANTS.CHARACTERS, {
-      limit: 20,
-      offset: charReduxData?.offsetPage,
-    });
-    dispatch(
-      charactersActions.characterReducer({
-        charData,
-        offsetPage: charReduxData?.offsetPage + 20,
-        scrollPosition: window.pageYOffset,
-      })
-    );
-  };
-
-  // init function for Characters
-  const init = async () => {
-    window.scrollTo(0, scroll);
-    if (!(charReduxData?.data?.length > 0)) {
-      getCharData();
-    }
-  };
-
-  useEffect(() => {
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getData = useGetPageData(CONSTANTS.CHARACTERS);
 
   const fetchMore = () => {
-    getCharData();
+    getData();
   };
 
   return (
