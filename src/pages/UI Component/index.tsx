@@ -36,7 +36,12 @@ const CardComponent = (props: any) => {
               {Array.from(Array(18)).map((_, e) => {
                 return (
                   <Grid key={e} item>
-                    <Skeleton variant="rounded" height="350px" width="250px" />
+                    <Skeleton
+                      variant="rounded"
+                      height="350px"
+                      width="250px"
+                      sx={{ background: "#fff" }}
+                    />
                   </Grid>
                 );
               })}
@@ -143,9 +148,20 @@ const CardComponent = (props: any) => {
                                   sx={{
                                     height: "350px",
                                     width: "250px",
-                                    background: "#141414",
-                                    borderBottomLeftRadius: 0,
-                                    borderTopLeftRadius: 0,
+                                    background: "#FFD700",
+                                    borderRadius: 10,
+                                    borderBottomLeftRadius: 2,
+                                    transform: `${
+                                      dummy === `${char?.id}_true`
+                                        ? "scale(1)"
+                                        : ""
+                                    }`,
+                                    transition: `${
+                                      dummy === `${char?.id}_true`
+                                        ? "transform 0.25s ease-in-out"
+                                        : ""
+                                    }`,
+                                    zDepth: 20,
                                   }}
                                 >
                                   <CardContent>
@@ -155,7 +171,7 @@ const CardComponent = (props: any) => {
                                       component="div"
                                       sx={{
                                         fontWeight: "600",
-                                        color: "#fff",
+                                        color: "#000",
                                         textAlign: "center",
                                       }}
                                     >
@@ -165,7 +181,7 @@ const CardComponent = (props: any) => {
                                       gutterBottom
                                       component="div"
                                       sx={{
-                                        color: "#fff",
+                                        color: "#000",
                                         textAlign: "center",
                                       }}
                                     >
