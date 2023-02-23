@@ -8,9 +8,10 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import logo from "../../media/spiderman.png";
+import { Searchbar } from "../index";
 import { Container } from "../index";
 
 const pages = ["Characters", "Comics", "Events", "Series"];
@@ -19,6 +20,7 @@ function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const location = useLocation();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -110,6 +112,7 @@ function Navbar() {
                   </Button>
                 ))}
               </Box>
+              <Searchbar />
             </Toolbar>
           </Grid>
         </Container>
