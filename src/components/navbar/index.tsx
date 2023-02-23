@@ -11,16 +11,17 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import logo from "../../media/spiderman.png";
-import { Container } from "../index";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+
 const pages = ["Characters", "Comics", "Events", "Series"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const location = useLocation();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -29,7 +30,6 @@ function Navbar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const location = useLocation();
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -81,88 +81,87 @@ function Navbar() {
       />
     </Search>
   );
+  console.log(location.pathname);
   return (
     <>
       <AppBar position="sticky" sx={{ background: "rgb(18, 18, 18)" }}>
-        <Container>
-          <Grid>
-            <Toolbar disableGutters>
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                  }}
-                >
-                  {/* mobile */}
-                  {pages.map((page) => (
-                    <MenuItem
-                      onClick={handleCloseNavMenu}
-                      component={Link}
-                      to={`${page.toLowerCase()}`}
-                      key={page}
-                    >
-                      <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-
-              <Typography component={Link} to="/">
-                <img
-                  src={logo}
-                  alt="bug"
-                  height={40}
-                  style={{ filter: "invert(1)" }}
-                />
-              </Typography>
-              <Box
-                sx={{ ml: 2, flexGrow: 1, display: { xs: "none", md: "flex" } }}
+        <Grid sx={{ pl: 12, pr: 12 }}>
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {/* web */}
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {/* mobile */}
                 {pages.map((page) => (
-                  <Button
-                    key={page}
+                  <MenuItem
                     onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      fontWeight: "bold",
-                    }}
                     component={Link}
-                    to={page.toLowerCase()}
+                    to={`${page.toLowerCase()}`}
+                    key={page}
                   >
-                    {page}
-                  </Button>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
                 ))}
-              </Box>
-              {!(location.pathname === "") && searchBar}
-            </Toolbar>
-          </Grid>
-        </Container>
+              </Menu>
+            </Box>
+
+            <Typography component={Link} to="/">
+              <img
+                src={logo}
+                alt="bug"
+                height={40}
+                style={{ filter: "invert(1)" }}
+              />
+            </Typography>
+            <Box
+              sx={{ ml: 2, flexGrow: 1, display: { xs: "none", md: "flex" } }}
+            >
+              {/* web */}
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontWeight: "bold",
+                  }}
+                  component={Link}
+                  to={page.toLowerCase()}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+            {!(location.pathname === "") && searchBar}
+          </Toolbar>
+        </Grid>
       </AppBar>
       <Outlet />
     </>
