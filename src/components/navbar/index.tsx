@@ -31,7 +31,11 @@ function Navbar() {
   return (
     <>
       <AppBar position="sticky" sx={{ background: "rgb(18, 18, 18)" }}>
-        <Container>
+        <Container
+          sx={{
+            maxWidth: { sm: "sm", md: "md", lg: "lg", xl: "xl" },
+          }}
+        >
           <Grid>
             <Toolbar disableGutters>
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
