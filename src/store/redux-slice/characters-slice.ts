@@ -8,6 +8,7 @@ const initialState = {
   total: 0,
   offsetPage: 0,
   scrollPosition: 0,
+  
 } as pagesInterface;
 
 export const characterSlice = createSlice({

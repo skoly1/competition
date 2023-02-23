@@ -3,7 +3,7 @@ import { getNewsData } from "../../api";
 import * as CONSTANTS from "../../utility/constants";
 
 import { useSelector, useDispatch } from "react-redux";
-
+import { Container } from "../../components";
 import { eventActions } from "../../store/redux-slice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
@@ -49,7 +49,7 @@ const EventsPage = () => {
   };
 
   return (
-    <>
+    <Container>
       <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
         <InfiniteScroll
           dataLength={eventReduxData?.data?.length || 0}
@@ -64,7 +64,7 @@ const EventsPage = () => {
           />
         </InfiniteScroll>
       </Suspense>
-    </>
+    </Container>
   );
 };
 

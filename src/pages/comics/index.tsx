@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import * as CONSTANTS from "../../utility/constants";
-
+import { Container } from "../../components";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
 import { useGetPageData, usePageInit } from "../../hooks";
@@ -14,9 +14,11 @@ const ComicsPage = () => {
   const fetchMore = () => {
     getData();
   };
-
+  const onChangeHandler = (e: any) => {
+    console.log(e.target.value);
+  };
   return (
-    <>
+    <Container>
       <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
         <InfiniteScroll
           dataLength={comicReduxData?.data?.length || 0}
@@ -28,10 +30,11 @@ const ComicsPage = () => {
           <CardComponent
             text={comicReduxData?.text}
             characters={comicReduxData?.data}
+            change={onChangeHandler}
           />
         </InfiniteScroll>
       </Suspense>
-    </>
+    </Container>
   );
 };
 

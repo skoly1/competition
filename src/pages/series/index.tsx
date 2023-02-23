@@ -3,7 +3,7 @@ import { getNewsData } from "../../api";
 import * as CONSTANTS from "../../utility/constants";
 
 import { useSelector, useDispatch } from "react-redux";
-
+import { Container } from "../../components";
 import { seriesActions } from "../../store/redux-slice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
@@ -49,7 +49,7 @@ const SeriesPage = () => {
   };
 
   return (
-    <>
+    <Container>
       <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
         <InfiniteScroll
           dataLength={seriesReduxData?.data?.length || 0}
@@ -66,7 +66,7 @@ const SeriesPage = () => {
           />
         </InfiniteScroll>
       </Suspense>
-    </>
+    </Container>
   );
 };
 
