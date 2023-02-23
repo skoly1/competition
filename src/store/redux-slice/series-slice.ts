@@ -8,7 +8,6 @@ const initialState = {
   total: 0,
   offsetPage: 0,
   scrollPosition: 0,
-  
 } as pagesInterface;
 
 export const seriesSlice = createSlice({
@@ -17,7 +16,7 @@ export const seriesSlice = createSlice({
   reducers: {
     SeriesReducer(state, action) {
       const existingId = state.data.map((ele: any) => ele.id);
-      const incomingData = action?.payload?.seriesData?.data;
+      const incomingData = action?.payload?.apiData?.data;
       const filteredData = incomingData.filter((ele: any) => {
         return !existingId.includes(ele.id) && ele;
       });
@@ -25,10 +24,10 @@ export const seriesSlice = createSlice({
 
       return {
         ...state,
-        text: action?.payload?.seriesData?.text,
-        status: action?.payload?.seriesData?.status,
+        text: action?.payload?.apiData?.text,
+        status: action?.payload?.apiData?.status,
         data: newseriesData,
-        total: action?.payload?.seriesData?.total,
+        total: action?.payload?.apiData?.total,
         offsetPage: action?.payload?.offsetPage,
         scrollPosition: action?.payload?.scrollPosition,
       };

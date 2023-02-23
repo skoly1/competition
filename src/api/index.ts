@@ -24,14 +24,9 @@ export async function getNewsData(
 
     url = `${url}${key}`;
 
-    let response = await axios.get(url, {
-      params: {
-        limit: `${object?.limit}`,
-        offset: `${object?.offset}`,
-        // nameStartsWith: `${object?.nameStartsWith}`,
-      },
-    });
-    if (object?.nameStartsWith && type === "character") {
+    let response: any;
+
+    if (object?.nameStartsWith && type === "characters") {
       response = await axios.get(url, {
         params: {
           limit: `${object?.limit}`,
@@ -39,8 +34,7 @@ export async function getNewsData(
           nameStartsWith: `${object?.nameStartsWith}`,
         },
       });
-    }
-    if (object?.nameStartsWith && type === "comics") {
+    } else if (object?.nameStartsWith && type === "comics") {
       response = await axios.get(url, {
         params: {
           limit: `${object?.limit}`,
@@ -48,8 +42,16 @@ export async function getNewsData(
           titleStartsWith: `${object?.nameStartsWith}`,
         },
       });
+    } else {
+      response = await axios.get(url, {
+        params: {
+          limit: `${object?.limit}`,
+          offset: `${object?.offset}`,
+          // nameStartsWith: `${object?.nameStartsWith}`,
+        },
+      });
     }
-    console.log(url);
+
     return {
       status: response.status,
       data: response.data.data.results,

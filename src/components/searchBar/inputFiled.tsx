@@ -8,10 +8,7 @@ const InputFiled = () => {
   const location = useLocation();
 
   const pathName = location.pathname.slice(1);
-  console.log(pathName);
-  // const apiData = useGetPageData(pathName, enteredKey);
-  // console.log(apiData());
-  
+
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     "& .MuiInputBase-input": {
@@ -29,6 +26,7 @@ const InputFiled = () => {
     },
   }));
   const onChangeHandler = (e: any) => {
+    debugger;
     setenteredKey(e.target.value);
   };
   return (
@@ -36,6 +34,7 @@ const InputFiled = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        value={enteredKey}
         onChange={onChangeHandler}
       />
     </div>

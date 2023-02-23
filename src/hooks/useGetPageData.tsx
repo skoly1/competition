@@ -9,7 +9,7 @@ import {
 } from "../store/redux-slice";
 import * as CONSTANTS from "../utility/constants";
 
-const useGetPageData = (page: any, letter?: any) => {
+const useGetPageData = (page: any) => {
   const reduxPageData = useSelector((state: any) => {
     return state[page];
   });
@@ -20,7 +20,6 @@ const useGetPageData = (page: any, letter?: any) => {
     const apiData = await getNewsData(page, {
       limit: 20,
       offset: reduxPageData?.offsetPage,
-      nameStartsWith: letter,
     });
 
     if (page === CONSTANTS.CHARACTERS) {

@@ -3,7 +3,7 @@ import { pagesInterface } from "../../utility/interfaces";
 
 const initialState = {
   status: 0,
-  text: "",
+  text: "search",
   data: [],
   total: 0,
   offsetPage: 0,
@@ -16,7 +16,7 @@ export const searchSlice = createSlice({
   reducers: {
     SearchReducer(state, action) {
       const existingId = state.data.map((ele: any) => ele.id);
-      const incomingData = action?.payload?.eventData?.data;
+      const incomingData = action?.payload?.apiData?.data;
       const filteredData = incomingData.filter((ele: any) => {
         return !existingId.includes(ele.id) && ele;
       });
@@ -24,10 +24,10 @@ export const searchSlice = createSlice({
 
       return {
         ...state,
-        text: action?.payload?.eventData?.text,
-        status: action?.payload?.eventData?.status,
+        text: action?.payload?.apiData?.text,
+        status: action?.payload?.apiData?.status,
         data: newEventData,
-        total: action?.payload?.eventData?.total,
+        total: action?.payload?.apiData?.total,
         offsetPage: action?.payload?.offsetPage,
         scrollPosition: action?.payload?.scrollPosition,
       };

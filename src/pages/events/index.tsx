@@ -1,55 +1,27 @@
-import React, { Suspense, useEffect } from "react";
-import { getNewsData } from "../../api";
+import React, { Suspense } from "react";
+
 import * as CONSTANTS from "../../utility/constants";
 
-import { useSelector, useDispatch } from "react-redux";
 import { Container } from "../../components";
-import { eventActions } from "../../store/redux-slice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
+import { useGetPageData, usePageInit } from "../../hooks";
 
 const EventsPage = () => {
-  const eventReduxData = useSelector((state: any) => {
-    return state?.events;
-  });
-  const scroll = useSelector((state: any) => state.events.scrollPosition);
-  const dispatch = useDispatch();
-  const getCharData = async () => {
-    const eventData = await getNewsData(CONSTANTS.EVENTS, {
-      limit: 20,
-      offset: eventReduxData?.offsetPage,
-    });
+  const eventReduxData = usePageInit(CONSTANTS.EVENTS);
 
-    dispatch(
-      eventActions.EventReducer({
-        eventData,
-        offsetPage: eventReduxData?.offsetPage + 20,
-        scrollPosition: window.pageYOffset,
-      })
-    );
-  };
-
-  // init function for Characters
-  const init = async () => {
-    if (eventReduxData?.data?.length > 0) {
-    } else {
-      getCharData();
-    }
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, scroll);
-
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getData = useGetPageData(CONSTANTS.EVENTS);
 
   const fetchMore = () => {
-    getCharData();
+    getData();
   };
 
   return (
-    <Container>
+    <Container
+      sx={{
+        maxWidth: { sm: "sm", md: "md", lg: "lg", xl: "xl" },
+      }}
+    >
       <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
         <InfiniteScroll
           dataLength={eventReduxData?.data?.length || 0}

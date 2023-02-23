@@ -13,9 +13,7 @@ const ComicsPage = () => {
   const fetchMore = () => {
     getData();
   };
-  const onChangeHandler = (e: any) => {
-    console.log(e.target.value);
-  };
+
   return (
     <>
       <Container
