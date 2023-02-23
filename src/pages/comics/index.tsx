@@ -8,7 +8,6 @@ import { Container } from "../../components";
 
 const ComicsPage = () => {
   const comicReduxData = usePageInit(CONSTANTS.COMICS);
-  console.log(comicReduxData);
 
   const getData = useGetPageData(CONSTANTS.COMICS);
 
