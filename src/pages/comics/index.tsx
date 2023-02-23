@@ -4,7 +4,6 @@ import { Container } from "../../components";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
 import { useGetPageData, usePageInit } from "../../hooks";
-import { Container } from "../../components";
 
 const ComicsPage = () => {
   const comicReduxData = usePageInit(CONSTANTS.COMICS);
