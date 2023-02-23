@@ -1,55 +1,26 @@
-import { Suspense, useEffect } from "react";
-import { getNewsData } from "../../api";
+import { Suspense } from "react";
 import * as CONSTANTS from "../../utility/constants";
 
-import { useSelector, useDispatch } from "react-redux";
-
-import { seriesActions } from "../../store/redux-slice";
+import { Container } from "../../components";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
+import { useGetPageData, usePageInit } from "../../hooks";
 
 const SeriesPage = () => {
-  const seriesReduxData = useSelector((state: any) => {
-    return state?.series;
-  });
-  const scroll = useSelector((state: any) => state.series.scrollPosition);
-  const dispatch = useDispatch();
-  const getCharData = async () => {
-    const seriesData = await getNewsData(CONSTANTS.SERIES, {
-      limit: 20,
-      offset: seriesReduxData?.offsetPage,
-    });
+  const seriesReduxData = usePageInit(CONSTANTS.SERIES);
 
-    dispatch(
-      seriesActions.SeriesReducer({
-        seriesData,
-        offsetPage: seriesReduxData?.offsetPage + 20,
-        scrollPosition: window.pageYOffset,
-      })
-    );
-  };
-
-  // init function for Characters
-  const init = async () => {
-    if (seriesReduxData?.data?.length > 0) {
-    } else {
-      getCharData();
-    }
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, scroll);
-
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getData = useGetPageData(CONSTANTS.SERIES);
 
   const fetchMore = () => {
-    getCharData();
+    getData();
   };
 
   return (
-    <>
+    <Container
+      sx={{
+        maxWidth: { sm: "sm", md: "md", lg: "lg", xl: "xl" },
+      }}
+    >
       <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
         <InfiniteScroll
           dataLength={seriesReduxData?.data?.length || 0}
@@ -66,7 +37,7 @@ const SeriesPage = () => {
           />
         </InfiniteScroll>
       </Suspense>
-    </>
+    </Container>
   );
 };
 

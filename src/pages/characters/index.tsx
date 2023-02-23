@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 
 import * as CONSTANTS from "../../utility/constants";
 
@@ -6,9 +6,17 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
 import { usePageInit, useGetPageData } from "../../hooks";
 import { Container } from "../../components";
+import { useSelector } from "react-redux";
 
 const CharactersPage = () => {
   const charReduxData = usePageInit(CONSTANTS.CHARACTERS);
+  const searchPageData = useSelector((state: any) => {
+    return state.search;
+  });
+
+  console.log(searchPageData);
+
+  useEffect(() => {}, [searchPageData]);
 
   const getData = useGetPageData(CONSTANTS.CHARACTERS);
 
@@ -25,15 +33,32 @@ const CharactersPage = () => {
       >
         <Suspense fallback={<div>Loading...</div>}>
           <InfiniteScroll
-            dataLength={charReduxData?.data?.length || 0}
+            dataLength={
+              searchPageData.text === "OK"
+                ? searchPageData?.data?.length
+                : charReduxData?.data?.length || 0
+            }
             next={fetchMore}
-            hasMore={(charReduxData?.data?.length || 0) < charReduxData?.total}
+            hasMore={
+              (searchPageData.text === "OK"
+                ? searchPageData?.data?.length
+                : charReduxData?.data?.length || 0) <
+              (searchPageData?.total || charReduxData?.total)
+            }
             loader={<div>Infinite Scrolling</div>}
             endMessage={<div>You reached End page</div>}
           >
             <CardComponent
-              text={charReduxData?.text}
-              characters={charReduxData?.data}
+              text={
+                searchPageData.text === "OK"
+                  ? searchPageData?.text
+                  : charReduxData?.text
+              }
+              characters={
+                searchPageData === "OK"
+                  ? searchPageData?.data
+                  : charReduxData?.data
+              }
             />
           </InfiniteScroll>
         </Suspense>

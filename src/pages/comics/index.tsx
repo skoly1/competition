@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import * as CONSTANTS from "../../utility/constants";
-
+import { Container } from "../../components";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardComponent from "../UI Component";
 import { useGetPageData, usePageInit } from "../../hooks";

@@ -3,6 +3,7 @@ import {
   characterSlice,
   comicSlice,
   eventSlice,
+  searchSlice,
   seriesSlice,
 } from "./redux-slice";
 
@@ -12,5 +13,6 @@ export const store = configureStore({
     characters: characterSlice.reducer,
     events: eventSlice.reducer,
     series: seriesSlice.reducer,
+    search: searchSlice.reducer,
   },
 });

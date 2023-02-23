@@ -35,12 +35,12 @@ const CardComponent = (props: any) => {
             <>
               {Array.from(Array(18)).map((_, e) => {
                 return (
-                  <Grid key={e} item>
+                  <Grid key={e} item sx={{ px: 1, py: 2 }}>
                     <Skeleton
                       variant="rounded"
                       height="350px"
                       width="250px"
-                      sx={{ background: "#fff" }}
+                      sx={{ background: "#EEEEEE", px: 1, py: 2 }}
                     />
                   </Grid>
                 );
