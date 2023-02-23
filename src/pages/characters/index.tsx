@@ -18,7 +18,11 @@ const CharactersPage = () => {
 
   return (
     <>
-      <Container>
+      <Container
+        sx={{
+          maxWidth: { sm: "sm", md: "md", lg: "lg", xl: "xl" },
+        }}
+      >
         <Suspense fallback={<div>Loading...</div>}>
           <InfiniteScroll
             dataLength={charReduxData?.data?.length || 0}

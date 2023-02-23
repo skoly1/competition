@@ -7,7 +7,6 @@ import { useGetPageData, usePageInit } from "../../hooks";
 
 const ComicsPage = () => {
   const comicReduxData = usePageInit(CONSTANTS.COMICS);
-  console.log(comicReduxData);
 
   const getData = useGetPageData(CONSTANTS.COMICS);
 
@@ -18,23 +17,30 @@ const ComicsPage = () => {
     console.log(e.target.value);
   };
   return (
-    <Container>
-      <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
-        <InfiniteScroll
-          dataLength={comicReduxData?.data?.length || 0}
-          next={fetchMore}
-          hasMore={(comicReduxData?.data?.length || 0) < comicReduxData?.total}
-          loader={<div style={{ color: "white" }}>Infinite Scrolling</div>}
-          endMessage={<div>You reached End page</div>}
-        >
-          <CardComponent
-            text={comicReduxData?.text}
-            characters={comicReduxData?.data}
-            change={onChangeHandler}
-          />
-        </InfiniteScroll>
-      </Suspense>
-    </Container>
+    <>
+      <Container
+        sx={{
+          maxWidth: { sm: "sm", md: "md", lg: "lg", xl: "xl" },
+        }}
+      >
+        <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
+          <InfiniteScroll
+            dataLength={comicReduxData?.data?.length || 0}
+            next={fetchMore}
+            hasMore={
+              (comicReduxData?.data?.length || 0) < comicReduxData?.total
+            }
+            loader={<div style={{ color: "white" }}>Infinite Scrolling</div>}
+            endMessage={<div>You reached End page</div>}
+          >
+            <CardComponent
+              text={comicReduxData?.text}
+              characters={comicReduxData?.data}
+            />
+          </InfiniteScroll>
+        </Suspense>
+      </Container>
+    </>
   );
 };
 
