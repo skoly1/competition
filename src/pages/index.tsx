@@ -1,5 +1,5 @@
-import React, { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import React from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import CharactersPage from "./characters";
 import { Layout, Navbar } from "../components";
 import ComicsPage from "./comics";
@@ -18,6 +18,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Layout />,
         children: [
+          {
+            index: true,
+            element: <Navigate to="/characters" replace />,
+          },
           { index: true, element: <HomePage /> },
           {
             path: "/characters",
