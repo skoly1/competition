@@ -13,6 +13,7 @@ import { Grid } from "@mui/material";
 import logo from "../../media/spiderman.png";
 import { Searchbar } from "../index";
 import { Container } from "../index";
+import FilterGrid from "../fitlerGrid";
 
 const pages = ["Characters", "Comics", "Events", "Series"];
 
